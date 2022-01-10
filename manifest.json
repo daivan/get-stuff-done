@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Get Stuff Done",
+  "description": "Helps you get stuff done",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -22,5 +22,8 @@
     "48": "/images/get_started48.png",
     "128": "/images/get_started128.png"
   },
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  }
 }
