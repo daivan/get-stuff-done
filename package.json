@@ -1,0 +1,27 @@
+{
+  "name": "get_stuff_done",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "scripts": {
+    "build": "tsc --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daivan/get-stuff-done.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension"
+  ],
+  "author": "daivan trinh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daivan/get-stuff-done/issues"
+  },
+  "homepage": "https://github.com/daivan/get-stuff-done#readme",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
