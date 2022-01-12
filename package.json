@@ -23,5 +23,8 @@
   "homepage": "https://github.com/daivan/get-stuff-done#readme",
   "devDependencies": {
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "vue": "^3.2.26"
   }
 }
