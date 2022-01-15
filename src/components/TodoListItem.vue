@@ -1,6 +1,7 @@
 <template>
   <div class="todoListItem">
-    <label><input type="checkbox" /> {{title}}</label>
+    <label v-if = "done"><input type="checkbox" checked="checked" /> {{name}}</label>
+    <label else><input type="checkbox" @click='passEvent(name)' />{{name}}</label>
   </div>
 </template>
 
@@ -8,8 +9,16 @@
 export default {
   name: 'TodoList',
   props: {
-    id: String,
-    title: String
+    key: String,
+    name: String,
+    done: Boolean,
+  },
+  methods:{
+    passEvent(name)
+    {
+      console.log('send pass event');
+      this.$emit('changeTitle', name)
+    }
   }
 }
 </script>

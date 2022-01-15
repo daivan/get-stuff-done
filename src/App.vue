@@ -1,6 +1,6 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <TodoList msg="Welcome to Your Vue.js App"/>
+  <h1>Todo List for today</h1>
+  <TodoList />
 </template>
 
 <script>

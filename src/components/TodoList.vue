@@ -1,11 +1,13 @@
 <template>
   <div class="hello">
-    <h1 v-on:click="hej">{{ msg }} CLICK HERE</h1>
+    <h1 v-on:click="hej">CLICK HERE TO SAVE</h1>
 {{posts}}
   <TodoListItem
     v-for="post in posts"
-    :key="post.id"
-    :title="post.title"
+    :key="post.name"
+    :name="post.name"
+    :done="post.done"
+    @changeTitle="ChangeT($event)"
   ></TodoListItem>
 
   </div>
@@ -13,6 +15,7 @@
 
 <script>
 import TodoListItem from './TodoListItem.vue'
+import moment from 'moment'
 
 export default {
   name: 'App',
@@ -26,21 +29,55 @@ data() {
   return {
     foo: 1,
     posts: [ 
-      {id: 1, title: 'first'},
-      {id: 2, title: 'second'}
+      {name: 'something', done: false},
+      {name: 'something else', done: false}
        ]
   }
 },
   methods:{
     hej(){
-      console.log('is this how its done?')
-      let key = 'foo'
-      localStorage.setItem(key, 'we doin it!');
-      let bajs = localStorage.getItem(key);
-      console.log('load', bajs)
+      
+      let today = moment().format('YMMD');
+      
+
+      let dailyEntryTemplate = [
+        {
+        'name':  'Pushups',
+        'done':  false
+      },
+                {
+        'name':  'Pullups',
+        'done':  false
+      }
+      ];
+      if (localStorage.getItem(today) === null) {
+       localStorage.setItem(today, JSON.stringify(dailyEntryTemplate))
+      }
+
+      
+      let dailyEntryJSON = localStorage.getItem(today)
+      this.posts = JSON.parse(dailyEntryJSON);
+      console.log('post', this.posts);
+      //console.log(dailyEntryJSON)
+//console.log(this.posts)
          
 
-    }
+    },
+    ChangeT(title)
+    {
+      console.log('getting what i want', title);
+      this.posts.map(post => {
+        if(post.name == title){
+          post.done = true;
+        }
+        //console.log('hej', x);
+        //console.log('title', title);
+      })
+      this.title=title;
+      console.log('getting what i want', this.posts);
+      let today = moment().format('YMMD');
+      localStorage.setItem(today, JSON.stringify(this.posts))
+    },
   }
 }
 </script>
