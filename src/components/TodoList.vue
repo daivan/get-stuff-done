@@ -1,15 +1,16 @@
 <template>
   <div class="hello">
-    <h1 v-on:click="hej">CLICK HERE TO SAVE</h1>
-{{posts}}
+This is what you want to do today
   <TodoListItem
     v-for="post in posts"
     :key="post.name"
     :name="post.name"
     :done="post.done"
     @changeTitle="ChangeT($event)"
+    v-model:count = 'post.count'
   ></TodoListItem>
-
+<br>
+<button v-on:click="save">Save</button>
   </div>
 </template>
 
@@ -22,46 +23,17 @@ export default {
   components: {
     TodoListItem
   },
-    props: {
-    msg: String
-  },
 data() {
   return {
-    foo: 1,
+    today: moment().format('YMMD'),
     posts: [ 
-      {name: 'something', done: false},
-      {name: 'something else', done: false}
+      {name: 'something', done: false, count: 0},
        ]
   }
 },
   methods:{
-    hej(){
-      
-      let today = moment().format('YMMD');
-      
-
-      let dailyEntryTemplate = [
-        {
-        'name':  'Pushups',
-        'done':  false
-      },
-                {
-        'name':  'Pullups',
-        'done':  false
-      }
-      ];
-      if (localStorage.getItem(today) === null) {
-       localStorage.setItem(today, JSON.stringify(dailyEntryTemplate))
-      }
-
-      
-      let dailyEntryJSON = localStorage.getItem(today)
-      this.posts = JSON.parse(dailyEntryJSON);
-      console.log('post', this.posts);
-      //console.log(dailyEntryJSON)
-//console.log(this.posts)
-         
-
+    save(){
+      localStorage.setItem(this.today, JSON.stringify(this.posts))
     },
     ChangeT(title)
     {
@@ -78,6 +50,27 @@ data() {
       let today = moment().format('YMMD');
       localStorage.setItem(today, JSON.stringify(this.posts))
     },
+  },
+  mounted(){
+
+      let dailyEntryTemplate = [
+        {
+        'name':  'Pushups',
+        'done':  false,
+        'count':  10
+      },
+      {
+        'name':  'Pullups',
+        'done':  false,
+        'count':  15
+      }
+      ];
+      if (localStorage.getItem(this.today) === null) {
+       localStorage.setItem(this.today, JSON.stringify(dailyEntryTemplate))
+      }
+
+      let dailyEntryJSON = localStorage.getItem(this.today)
+      this.posts = JSON.parse(dailyEntryJSON);
   }
 }
 </script>

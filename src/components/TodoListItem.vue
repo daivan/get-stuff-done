@@ -1,8 +1,16 @@
 <template>
   <div class="todoListItem">
-    <label v-if = "done"><input type="checkbox" checked="checked" /> {{name}}</label>
-    <label else><input type="checkbox" @click='passEvent(name)' />{{name}}</label>
+    {{count}}
+    <label v-if="done"><input type="checkbox" checked="checked" /> {{name}}</label>
+    <label v-else><input type="checkbox" @click='passEvent(name)' />{{name}}</label>
   </div>
+      <label> Number </label>
+    <input 
+      type='text'
+      :value='count'
+      placeholder='Input'
+      @input='$emit("update:count", $event.target.value)'
+    />
 </template>
 
 <script>
@@ -12,10 +20,12 @@ export default {
     key: String,
     name: String,
     done: Boolean,
+    count: Number
   },
   methods:{
     passEvent(name)
     {
+      console.log('done', this.done)
       console.log('send pass event');
       this.$emit('changeTitle', name)
     }
