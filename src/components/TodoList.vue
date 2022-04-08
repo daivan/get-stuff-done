@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-This is what you want to do today
   <TodoListItem
     v-for="post in posts"
     :key="post.name"
@@ -9,26 +8,33 @@ This is what you want to do today
     @changeTitle="ChangeT($event)"
     v-model:count = 'post.count'
   ></TodoListItem>
+
+
 <br>
 <button v-on:click="save">Save</button>
+
+  <History></History>
   </div>
 </template>
 
 <script>
 import TodoListItem from './TodoListItem.vue'
+import History from './History.vue'
 import moment from 'moment'
 
 export default {
-  name: 'App',
+  name: 'TodoList',
   components: {
-    TodoListItem
+    TodoListItem,
+    History
   },
 data() {
   return {
     today: moment().format('YMMD'),
     posts: [ 
       {name: 'something', done: false, count: 0},
-       ]
+       ],
+       history:[]
   }
 },
   methods:{
@@ -50,11 +56,22 @@ data() {
       let today = moment().format('YMMD');
       localStorage.setItem(today, JSON.stringify(this.posts))
     },
+    allStorage() {
+
+    var archive = {}, // Notice change here
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        archive[ keys[i] ] = localStorage.getItem( keys[i] );
+    }
+
+    return archive;
+}
   },
   mounted(){
 
-      let dailyEntryTemplate = [
-        {
+      let dailyEntryTemplate = [{
         'name':  'Pushups',
         'done':  false,
         'count':  10
@@ -63,14 +80,16 @@ data() {
         'name':  'Pullups',
         'done':  false,
         'count':  15
-      }
-      ];
+      }];
       if (localStorage.getItem(this.today) === null) {
        localStorage.setItem(this.today, JSON.stringify(dailyEntryTemplate))
       }
 
       let dailyEntryJSON = localStorage.getItem(this.today)
       this.posts = JSON.parse(dailyEntryJSON);
+
+      this.history = this.allStorage();
+      
   }
 }
 </script>

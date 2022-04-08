@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'TodoList',
+  name: 'TodoListItem',
   props: {
     key: String,
     name: String,
