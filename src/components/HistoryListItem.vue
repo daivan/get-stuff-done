@@ -9,7 +9,7 @@ export default {
   name: 'HistoryListItem',
   props: {
     historyListItem: Object,
-    date: String
+    date: Number
   },
 }
 </script>

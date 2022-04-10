@@ -18,28 +18,13 @@ export default {
   components: {
     HistoryList
   },
-data() {
-  return {
-       history:[]
-  }
-},
+  props: {
+    history: Object
+  },
   methods:{
-    allStorage() {
-
-    var archive = {}, // Notice change here
-        keys = Object.keys(localStorage),
-        i = keys.length;
-
-    while ( i-- ) {
-      
-        archive[ keys[i] ] = JSON.parse(localStorage.getItem( keys[i] ));
-    }
-
-    return archive;
-}
   },
   mounted(){
-      this.history = this.allStorage();      
+          
   }
 }
 </script>

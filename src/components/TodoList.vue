@@ -5,15 +5,15 @@
     :key="post.name"
     :name="post.name"
     :done="post.done"
-    @changeTitle="ChangeT($event)"
     v-model:count = 'post.count'
+    @changeTitle="ChangeT($event)"
   ></TodoListItem>
 
 
 <br>
 <button v-on:click="save">Save</button>
 
-  <History></History>
+  <History :history="history"></History>
   </div>
 </template>
 
@@ -30,18 +30,32 @@ export default {
   },
 data() {
   return {
-    today: moment().format('YMMD'),
+    today: moment().format('YYYY-MM-D'),
     posts: [ 
       {name: 'something', done: false, count: 0},
        ],
-       history:[]
+    history:[]
   }
 },
   methods:{
     save(){
       localStorage.setItem(this.today, JSON.stringify(this.posts))
+      this.history = this.allStorage();
     },
-    ChangeT(title)
+        allStorage() {
+
+    var archive = {}, // Notice change here
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+      
+        archive[ keys[i] ] = JSON.parse(localStorage.getItem( keys[i] ));
+    }
+
+    return archive;
+        },
+        ChangeT(title)
     {
       console.log('getting what i want', title);
       this.posts.map(post => {
@@ -56,18 +70,6 @@ data() {
       let today = moment().format('YMMD');
       localStorage.setItem(today, JSON.stringify(this.posts))
     },
-    allStorage() {
-
-    var archive = {}, // Notice change here
-        keys = Object.keys(localStorage),
-        i = keys.length;
-
-    while ( i-- ) {
-        archive[ keys[i] ] = localStorage.getItem( keys[i] );
-    }
-
-    return archive;
-}
   },
   mounted(){
 
@@ -87,8 +89,7 @@ data() {
 
       let dailyEntryJSON = localStorage.getItem(this.today)
       this.posts = JSON.parse(dailyEntryJSON);
-
-      this.history = this.allStorage();
+      this.history = this.allStorage();  
       
   }
 }

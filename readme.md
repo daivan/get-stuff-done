@@ -40,3 +40,23 @@ Click `Load unpacked` button
 Select the get-stuff-done/extension folder
 
 Done!
+
+## Update the chrome extension
+
+First run the new build
+
+```
+npm run build
+```
+
+Move everything in dist to extension
+
+```
+cp .\dist\ .\extension\
+```
+
+Rename the index.html to newtab.html 
+```
+rm .\extension\newtab.html
+cp .\extension\index.html .\extension\newtab.html
+```
