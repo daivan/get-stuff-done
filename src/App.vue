@@ -1,9 +1,11 @@
 <script setup>
 import TodoList from './components/TodoList.vue'
+import NewTask from './components/NewTask.vue'
 </script>
 
 <template>
   <TodoList />
+  <NewTask />
 </template>
 
 <style>

@@ -49,7 +49,10 @@ data() {
         i = keys.length;
 
     while ( i-- ) {
-      
+        // skip the key with daily_tasks
+        if(keys[i]==='daily_tasks'){
+          continue;
+        }
         archive[ keys[i] ] = JSON.parse(localStorage.getItem( keys[i] ));
     }
 
